@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-18",
+  "status": "RESEARCH_CANDIDATE",
+  "publication_authorized": false,
+  "raw_household_data_included": false,
+  "individual_predictions_included": false,
+  "synthetic_demo_only": true,
+  "stage6_benchmark_rows": 70,
+  "stage9_extended_models": 23,
+  "stage9_scientific_status": "SUBSTANTIVELY_REPRODUCED",
+  "stage9_verified_aggregate_tables": {
+    "block_models.csv": 8,
+    "block_shapley.csv": 3,
+    "sensitivity_models.csv": 8,
+    "cross_domain_models.csv": 8,
+    "block_reference_comparison.csv": 7,
+    "cross_domain_reference_comparison.csv": 8,
+    "benchmark_split_level.csv": 70,
+    "benchmark_summary.csv": 7
+  },
+  "outstanding_scientific_items": [
+    "historical_CORE7B_specification_reconciliation",
+    "remaining_archived_only_manuscript_analyses",
+    "full_composite_cross_domain_comparator_status",
+    "final_figure_table_and_SI_coverage"
+  ],
+  "external_publication": false
+}

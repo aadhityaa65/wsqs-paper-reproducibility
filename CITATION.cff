@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: >-
+  Cite the associated Mohanavelu and Osman study when using these
+  reproducibility materials, and report the repository version.
+type: software
+title: "Water Service Quality Score (WSQS): original-study computational reproducibility"
+version: 0.1.0
+authors:
+  - family-names: Mohanavelu
+    given-names: Aadhityaa
+  - family-names: Osman
+    given-names: Khalid K.
+keywords:
+  - water service quality
+  - forecasting
+  - reproducibility
+  - household water services
+preferred-citation:
+  type: article
+  title: "Operational Service Conditions are the primary predictors of Household Water Service Quality Across Heterogeneous Provision Systems"
+  authors:
+    - family-names: Mohanavelu
+      given-names: Aadhityaa
+    - family-names: Osman
+      given-names: Khalid K.
+  year: 2026
+  doi: "10.21203/rs.3.rs-10888037/v1"
+  url: "https://doi.org/10.21203/rs.3.rs-10888037/v1"
