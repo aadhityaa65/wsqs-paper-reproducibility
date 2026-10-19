@@ -25,7 +25,7 @@ Original configurations remain in [`config/`](config/), feature documentation in
 
 ## Important scientific boundaries
 
-The package **does not fully reproduce the paper**. The historical CORE-7B fitting discrepancy is unresolved. Small Extra Trees and Random Forest numerical differences are documented. Several manuscript analyses, including priority-null permutation inference, the separately executed primary-model repeated-split exercise, feature-attribution pairs and certain figures/tables, are not reconstructed here. The seven-learner repeated-split benchmark is **not** the separate primary-model repeated-split exercise. Predictive and Shapley quantities must not be interpreted causally.
+The package **does not fully reproduce the paper**. The original CORE-7B model has now been reproduced using its historical 33-predictor (SCP) specification and fitting protocol, matching held-out RMSE 10.968920357 and 461 selected CatBoost iterations. CORE-7A uses 25 service-support and context (SC) predictors, whereas CORE-7B uses 33 SCP predictors. An earlier portable CORE-7B sensitivity run used 25 SC predictors and therefore was not an exact reproduction of the original CORE-7B model. Small Extra Trees and Random Forest numerical differences are documented. Several manuscript analyses, including priority-null permutation inference, the separately executed primary-model repeated-split exercise, feature-attribution pairs and certain figures/tables, are not reconstructed here. The seven-learner repeated-split benchmark is **not** the separate primary-model repeated-split exercise. Predictive and Shapley quantities must not be interpreted causally.
 
 The original archive documented these limits prior to GitHub preparation. Its status metadata in `docs/RELEASE_STATUS.json` is a **historical frozen candidate record**, not an assertion that every manuscript result was reproduced. We have preserved it unchanged. See [`REPRODUCIBILITY_SCOPE.md`](REPRODUCIBILITY_SCOPE.md) for a short coverage matrix.
 
@@ -59,7 +59,7 @@ The frozen original-study ZIP is maintained separately as a release asset; SHA-2
 
 `f94a1ed639dfb42706c8fff51b0071ff580a4cd6d42638b4e65177d458bb4ba1`
 
-For the exact historical README and checksum list, see [`docs/FROZEN_ORIGINAL_README.md`](docs/FROZEN_ORIGINAL_README.md) and [`docs/FROZEN_ORIGINAL_SHA256SUMS.txt`](docs/FROZEN_ORIGINAL_SHA256SUMS.txt). All 41 original files *other than* the README, `.gitignore` and working manifest remain byte-for-byte identical to the frozen archive. This GitHub wrapper adds publication metadata and privacy safeguards without changing original scientific code or aggregate research results.
+For the exact historical README and checksum list, see [`docs/FROZEN_ORIGINAL_README.md`](docs/FROZEN_ORIGINAL_README.md) and [`docs/FROZEN_ORIGINAL_SHA256SUMS.txt`](docs/FROZEN_ORIGINAL_SHA256SUMS.txt). The separately preserved 44-file historical original-study archive remains unchanged. In this GitHub edition, the portable CORE-7B fitting routine, its unit-test coverage and the corresponding aggregate reference result were corrected to match the original 33-predictor specification; these changes are not modifications to the frozen historical archive. This GitHub wrapper adds publication metadata and privacy safeguards without changing original scientific code or aggregate research results.
 
 ## Privacy, licenses and citation
 

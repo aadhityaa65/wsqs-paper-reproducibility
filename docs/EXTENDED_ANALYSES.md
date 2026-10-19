@@ -14,6 +14,8 @@ Service), population-priority weighting and household-
 specific priority weighting. Population weights are
 calculated on development observations only.
 
+The original CORE-7A outcome model uses 25 SC predictors. CORE-7B uses 33 SCP predictors, validation best-model selection without the general benchmark overfitting-detector settings and the original unsorted development partition for final refitting. This historical CORE-7B procedure matched RMSE 10.968920357 and 461 iterations in the October 19, 2026 reproduction. Both priority-weighted outcomes continue to use 25 SC predictors. The earlier Stage 9 CORE-7B SC fit (RMSE 11.051243758) is a separate sensitivity comparison.
+
 Feature sensitivity specifications comprise reported
 income as a nominal predictor, alternative pressure
 coding, respondent age and respondent gender.

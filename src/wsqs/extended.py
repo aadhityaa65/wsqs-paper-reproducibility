@@ -66,6 +66,126 @@ def block_columns(block, plans=None):
     ]
 
 
+OUTCOME_BLOCK = {
+    "CORE7A": "SC",
+    "CORE7B": "SCP",
+    "POPULATION_PRIORITY": "SC",
+    "INDIVIDUAL_PRIORITY": "SC",
+}
+
+
+def outcome_columns(name, plans=None):
+    if name not in OUTCOME_BLOCK:
+        raise ValueError("Unknown sensitivity outcome")
+    return block_columns(OUTCOME_BLOCK[name], plans)
+
+
+
+def fit_core7b_historical(
+    X, target, columns, categorical, numeric,
+    fit, validation, test, development,
+):
+    from catboost import CatBoostRegressor, Pool
+    from sklearn.model_selection import train_test_split
+    from wsqs.models import (
+        prepare_catboost, summary_metrics, model_settings
+    )
+
+    columns = list(columns)
+
+    if (
+        columns != scientific_plans()["full"]
+        or len(columns) != 33
+    ):
+        raise ValueError("CORE7B requires 33 SCP predictors")
+
+    trainval, historical_test = train_test_split(
+        np.arange(len(X)),
+        test_size=0.20,
+        random_state=20260714,
+    )
+
+    historical_fit, historical_val = train_test_split(
+        trainval,
+        test_size=0.20,
+        random_state=20260714,
+    )
+
+    if not (
+        np.array_equal(historical_test, test)
+        and np.array_equal(historical_fit, fit)
+        and np.array_equal(historical_val, validation)
+        and np.array_equal(
+            np.sort(trainval),
+            np.sort(development),
+        )
+    ):
+        raise ValueError("Historical partition mismatch")
+
+    cats = [c for c in columns if c in categorical]
+    nums = [c for c in columns if c in numeric]
+
+    if len(cats) + len(nums) != 33:
+        raise ValueError("Incomplete CORE7B feature types")
+
+    prepared = prepare_catboost(
+        X[columns], cats, nums
+    )
+
+    params = dict(model_settings()["catboost"])
+    params.pop("od_type", None)
+    params.pop("od_wait", None)
+    params.update(
+        verbose=False,
+        allow_writing_files=False,
+    )
+
+    selector = CatBoostRegressor(**params)
+    selector.fit(
+        Pool(
+            prepared.iloc[fit],
+            target.iloc[fit],
+            cat_features=cats,
+        ),
+        eval_set=Pool(
+            prepared.iloc[validation],
+            target.iloc[validation],
+            cat_features=cats,
+        ),
+        use_best_model=True,
+        verbose=False,
+    )
+
+    trees = int(selector.tree_count_)
+
+    if not 1 <= trees <= 1400:
+        raise RuntimeError("Invalid selected iterations")
+
+    final_params = dict(params, iterations=trees)
+    model = CatBoostRegressor(**final_params)
+
+    model.fit(
+        Pool(
+            prepared.iloc[trainval],
+            target.iloc[trainval],
+            cat_features=cats,
+        ),
+        verbose=False,
+    )
+
+    prediction = model.predict(
+        Pool(prepared.iloc[test], cat_features=cats)
+    )
+
+    return {
+        **summary_metrics(target.iloc[test], prediction),
+        "selected_iterations": trees,
+        "heldout_n": len(test),
+        "fit_n": len(fit),
+        "validation_n": len(validation),
+    }
+
+
 def block_shapley(r2):
     """Order-independent three-block Shapley R² allocation."""
 
@@ -502,7 +622,6 @@ def reproduce_extended(frame, X, categorical, numeric, progress=print):
     ])
 
     sensitivity_rows = []
-    sc = block_columns("SC", plans)
 
     for name in (
         "CORE7A",
@@ -511,15 +630,24 @@ def reproduce_extended(frame, X, categorical, numeric, progress=print):
         "INDIVIDUAL_PRIORITY",
     ):
         target = outcomes[name].reset_index(drop=True)
+        columns = outcome_columns(name, plans)
 
-        metrics = fit_one(
-            X, target, sc, categorical, numeric,
-            fit, val, test, dev,
-        )
+        if name == "CORE7B":
+            metrics = fit_core7b_historical(
+                X, target, columns, categorical, numeric,
+                fit, val, test, dev,
+            )
+        else:
+            metrics = fit_one(
+                X, target, columns, categorical, numeric,
+                fit, val, test, dev,
+            )
 
         sensitivity_rows.append({
             "specification": name,
             "family": "outcome",
+            "predictor_block": OUTCOME_BLOCK[name],
+            "predictor_count": len(columns),
             **metrics,
         })
 
@@ -593,6 +721,7 @@ def reproduce_extended(frame, X, categorical, numeric, progress=print):
         "population_weights": weights.to_dict(),
         "household_level_outputs": False,
         "interpretation": "Predictive, not causal",
+        "outcome_predictor_blocks": dict(OUTCOME_BLOCK),
     }
 
     return {

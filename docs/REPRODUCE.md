@@ -21,7 +21,7 @@ validation records and 1,229 held-out test records.
 CatBoost uses 1,400 maximum iterations, a learning rate
 of 0.035, depth 5 and validation-based early stopping.
 The best iteration count is used to refit the development
-sample before held-out evaluation.
+sample before held-out evaluation. The historical CORE-7B extension is a documented exception to the general overfitting detector: it uses validation best-model selection without `od_type`/`od_wait` and retains the unsorted development-row order when refitting. CORE-7B uses 33 SCP predictors, whereas CORE-7A uses 25 SC predictors.
 
 Ridge selects alpha from 0.1, 1, 10 and 100 using
 validation RMSE. The other learners follow their specified
