@@ -1,25 +1,20 @@
-# Empirical reproducibility scope and limitations
+# Reproducibility scope
 
-**Evidence basis:** the 44-file original WSQS reproducibility candidate, frozen on 18 October 2026; the original `docs/ANALYSIS_COVERAGE.md` and `docs/RELEASE_STATUS.json` remain unchanged.
+This package shares executable study methods and selected aggregate outputs. It supports independent inspection of the original computational choices and execution of synthetic demonstrations. Re-estimation of the empirical models requires separately authorized access to the study's harmonized analytical data.
 
-| Analysis or artifact | Scope supported by this archive |
+| Component | Available reproduction material |
 | --- | --- |
-| CORE-8, CORE-7A and CORE-7B scoring and 33-feature construction | Implemented and synthetic-unit-tested |
-| Primary CatBoost and six benchmark entries | Portable ten-split benchmark with aggregate reference metrics; requires restricted input for refit |
-| Service-support (S), context (C), priorities (P) | Seven nonempty block coalitions and Shapley R² output |
-| Cross-domain checks | Eight leave-target-domain-out models with aggregate comparisons |
-| Alternate outcomes and inputs | Selected CORE-7A, weighting, income, pressure, age and gender sensitivity encodings |
-| CORE-7A original outcome sensitivity | 25 SC predictors, held-out RMSE 11.141250646, 285 selected iterations |
-| CORE-7B original outcome sensitivity | Historical protocol verified on October 19, 2026 with 33 SCP predictors, matching held-out RMSE 10.968920357 and 461 selected iterations |
-| Prior Stage 9 CORE-7B SC comparator | 25 SC predictors, held-out RMSE 11.051243758; distinct specification, not the original CORE-7B fit |
-| Extra Trees and Random Forest | Small numerical differences from historical artifacts documented in original audit |
-| Primary-model repeated splits | **Not** the same exercise as the seven-learner benchmark; not portable as a separate full reproduction here |
-| Priority-null permutations and uncertainty, grouped explanations, service–priority pairs | Not fully reconstructed in this archive |
-| Full manuscript and Supplementary tables and figures | **Not** all regenerated here |
-| Empirical refitting | Requires separately authorized harmonized analytical data, **not provided** |
+| CORE-8 measurement and 33-feature construction | Python implementation, manifest, tests and synthetic demonstrations |
+| Core predictor-block comparisons | Seven nonempty S/C/P combinations and three-block Shapley R² allocation |
+| CORE-7A domain exclusion | Excludes Acceptability; 25 SC predictors; original held-out RMSE 11.141250646 and 285 CatBoost iterations |
+| CORE-7B domain exclusion | Excludes Customer Service; 33 SCP predictors; original held-out RMSE 10.968920357 and 461 CatBoost iterations, reproduced under the historical fitting specification |
+| Priority-weighted WSQS outcomes | Population- and individual-priority sensitivity implementations using 25 SC predictors |
+| Benchmark algorithms | Seven-learner comparison across ten specified data partitions and aggregate benchmark files |
+| Cross-domain models | Eight predictor-exclusion specifications and aggregate comparisons |
+| Feature sensitivities | Selected income, pressure, age and gender variants |
+| Supplementary inference and figure creation | Some procedures and manuscript outputs are outside the portable repository |
+| Original empirical data | Not distributed; requires separate authorization |
 
-The original `docs/ANALYSIS_COVERAGE.md` predates the October 19, 2026 CORE-7B reconciliation and is preserved as historical provenance. Its CORE-7B warning is superseded by the verified 33-predictor reproduction. The `source_specification_sha256` in `config/scientific_plans.json` identifies the original `STEP18B_corrected_pipeline_scaffold.py` scientific specification; that upstream source is not separately included in this package.
+The ten-partition multi-learner benchmark is distinct from the separate primary-model repeated-split analysis described in the manuscript. The repository does not reproduce every inferential exercise, feature-attribution analysis or supplementary figure. Results based on different outcome definitions should be interpreted as robustness checks, not direct comparisons of identical prediction targets. Block contributions and Shapley allocations are descriptive of prediction, not causal effects.
 
-**Interpretation:** This is reproducibility *support* with verified portable components and selected archived aggregate results. It is not a turnkey open-data reproduction of the full paper. See `docs/ANALYSIS_COVERAGE.md` for the detailed frozen statement. Predictive and Shapley decompositions are not causal effects.
-
-The original `docs/RELEASE_STATUS.json` records the status of the **frozen research candidate** as of October 2026, including `publication_authorized: false`. That historical file is kept intact for provenance. Repository public-release authorization, if later granted, is a separate administrative decision and does not change historical scientific-coverage status.
+Historical project files in `docs/ANALYSIS_COVERAGE.md` and `docs/RELEASE_STATUS.json` are preserved for archival provenance. They refer to earlier candidate stages and are not the current statement of scientific scope. The stable computational specifications are described here and in [`docs/REPRODUCE.md`](docs/REPRODUCE.md).

@@ -1,10 +1,11 @@
-# Reproducibility repository release notes
+# Release notes
 
-## v0.1.0 — portable original-study reproduction candidate
+## v0.1.0 | Study reproducibility companion
 
-- Preserve the frozen original-study archive and package the scientific implementation, modeling specifications, 25 synthetic demonstration records and selected aggregate results. The portable CORE-7B routine was corrected to reproduce the historical 33-predictor model without modifying the original archive.
-- Preserve the exact original 44-file archive and record its SHA-256 for comparison.
-- Add GitHub-facing README, paper citation, licensing/rights information and privacy safeguards. The current GitHub implementation includes the controlled CORE-7B correction, predictor-set regression tests and an updated aggregate CORE-7B result.
-- Document incomplete manuscript coverage and the different CORE-7A (25 SC) and CORE-7B (33 SCP) specifications. The historical CORE-7B fit matched RMSE 10.968920357 and 461 selected iterations during controlled reproduction.
+Initial portable repository edition for the water-service-quality measurement and forecasting study by Mohanavelu and Osman (2026).
 
-**Initial repository publication is on hold pending separate rights confirmation for the original-study materials.** `v0.1.0` is a deliberately scoped initial version, not a claim of full paper replication or journal-final scientific coverage.
+Includes CORE-8 scoring, scientific predictor specifications, model implementations, selected benchmark and sensitivity results, a 25-record synthetic example and verification tests. The CORE-7A sensitivity follows the original 25-predictor SC specification. CORE-7B follows the original 33-predictor SCP specification and historical CatBoost fitting procedure.
+
+The repository distributes no observed household-level data or individual model predictions. Empirical refitting requires authorized access to the harmonized analytical dataset. It is not a complete reproduction of every manuscript figure and table.
+
+Original code and functional configurations use the MIT License. Eligible original nonsoftware materials use CC BY 4.0. The related research is coauthored by Aadhityaa Mohanavelu and Khalid K. Osman, with software development credited to Aadhityaa Mohanavelu. See [`LICENSING.md`](LICENSING.md) and [`RIGHTS_AND_ATTRIBUTION.md`](RIGHTS_AND_ATTRIBUTION.md).

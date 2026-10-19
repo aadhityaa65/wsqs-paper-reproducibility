@@ -14,7 +14,7 @@ Service), population-priority weighting and household-
 specific priority weighting. Population weights are
 calculated on development observations only.
 
-The original CORE-7A outcome model uses 25 SC predictors. CORE-7B uses 33 SCP predictors, validation best-model selection without the general benchmark overfitting-detector settings and the original unsorted development partition for final refitting. This historical CORE-7B procedure matched RMSE 10.968920357 and 461 iterations in the October 19, 2026 reproduction. Both priority-weighted outcomes continue to use 25 SC predictors. The earlier Stage 9 CORE-7B SC fit (RMSE 11.051243758) is a separate sensitivity comparison.
+The CORE-7A sensitivity uses 25 service-support and context (SC) predictors. CORE-7B uses all 33 service-support, context and priority (SCP) predictors. For CORE-7B, CatBoost selects the best iteration against the fixed internal-validation sample without the benchmark overfitting-detector settings and refits using the original development-row ordering. The reference held-out CORE-7B RMSE is 10.968920357 with 461 selected iterations. Both priority-weighted outcomes use 25 SC predictors.
 
 Feature sensitivity specifications comprise reported
 income as a nominal predictor, alternative pressure

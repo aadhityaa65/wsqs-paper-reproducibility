@@ -1,15 +1,13 @@
 cff-version: 1.2.0
 message: >-
-  Cite the associated Mohanavelu and Osman study when using these
-  reproducibility materials, and report the repository version.
+  Cite the Mohanavelu and Osman (2026) study when using its research
+  methods or findings, and report this software repository and version.
 type: software
 title: "Water Service Quality Score (WSQS): original-study computational reproducibility"
 version: 0.1.0
 authors:
   - family-names: Mohanavelu
     given-names: Aadhityaa
-  - family-names: Osman
-    given-names: Khalid K.
 keywords:
   - water service quality
   - forecasting

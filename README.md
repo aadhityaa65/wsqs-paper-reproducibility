@@ -1,37 +1,28 @@
-# Water Service Quality Score (WSQS) | Original-Study Computational Reproducibility
+# Water Service Quality Score (WSQS) | Study reproducibility
 
-**Companion code and aggregate evidence for the original household water-service-quality forecasting study.**  
-**Repository version:** `v0.1.0` (portable, *partial* empirical reproduction package).  
-**Study authors:** Aadhityaa Mohanavelu and Khalid K. Osman.
+Computational materials accompanying the household water-service-quality measurement and forecasting study by **Aadhityaa Mohanavelu and Khalid K. Osman**.
 
-**Related general-purpose toolkit:** [wsqs-toolkit](https://github.com/aadhityaa65/wsqs-toolkit), separately released as `v0.9.0`.
+**Software and repository implementation:** Aadhityaa Mohanavelu.  
+**Research supervision and study coauthorship:** Prof. Khalid K. Osman, Stanford University.  
+**Version:** `0.1.0`.
 
-## Scope at a glance
+This repository provides the WSQS measurement implementation, scientific feature definitions, model configurations, selected evaluation routines and aggregate results. It is a companion to the research article, not a public release of the original household survey data or a complete end-to-end reproduction of every article figure and table.
 
-This repository preserves the original study's CORE-8 scoring and feature-construction code, its model settings, portable benchmark and extension routines, selected aggregate empirical evaluation tables and **25 entirely synthetic examples**. It contains **no observed household-level survey records**, respondent identifiers, individual predictions or private analysis datasets. Its purpose is to expose the computational methods and *documented subset* of reproducible numerical checks, **not** to claim that every manuscript table or figure can be recreated from public inputs.
+The separately developed [WSQS toolkit](https://github.com/aadhityaa65/wsqs-toolkit) provides a more general-purpose implementation.
 
-The original household-level data are restricted. Without separately authorized access to the harmonized analytical dataset, researchers can run the synthetic examples and examine the aggregate evaluation tables, but cannot independently refit the empirical models. See [`docs/DATA_AVAILABILITY.md`](docs/DATA_AVAILABILITY.md), [`docs/ANALYSIS_COVERAGE.md`](docs/ANALYSIS_COVERAGE.md) and [`REPRODUCIBILITY_SCOPE.md`](REPRODUCIBILITY_SCOPE.md).
+## Contents
 
-## Scientific material included
+- `src/wsqs/`, `run.py` and `run_extended.py` contain scoring, predictor construction and model evaluation code.
+- `config/` and `questionbook/` document the model and questionnaire-variable specifications.
+- `results/aggregate/` provides selected empirical evaluation summaries, with no household-level predictions.
+- `example/` contains 25 wholly synthetic records for verifying code execution.
+- `tests/` and `environment/` provide tests and reproducible environment instructions.
 
-- CORE-8 household WSQS, plus CORE-7A and CORE-7B sensitivity outcome implementations.
-- 33 original predictors comprising 22 service-support, three household-context and eight stated-priority variables.
-- Primary CatBoost and six benchmark entries, with ten specified repeated seeds for the seven-learner benchmark.
-- Seven nonempty S/C/P predictor-block combinations, three-block Shapley decomposition and eight target-domain exclusions.
-- Selected outcome and demographic/provider encoding sensitivities.
-- Original aggregate benchmark, block, Shapley and cross-domain result files, with methodological qualifications.
+The original forecasting model uses 33 predictors comprising 22 service-support variables, three household-context variables and eight stated-priority ratings. Its CORE-7A outcome sensitivity excludes Acceptability and uses 25 service-support and context (SC) predictors. CORE-7B excludes Customer Service and uses all 33 service-support, context and priority (SCP) predictors. Its historical CatBoost fitting procedure is documented in [`docs/REPRODUCE.md`](docs/REPRODUCE.md).
 
-Original configurations remain in [`config/`](config/), feature documentation in [`questionbook/`](questionbook/) and aggregate results in [`results/aggregate/`](results/aggregate/).
+## Getting started
 
-## Important scientific boundaries
-
-The package **does not fully reproduce the paper**. The original CORE-7B model has now been reproduced using its historical 33-predictor (SCP) specification and fitting protocol, matching held-out RMSE 10.968920357 and 461 selected CatBoost iterations. CORE-7A uses 25 service-support and context (SC) predictors, whereas CORE-7B uses 33 SCP predictors. An earlier portable CORE-7B sensitivity run used 25 SC predictors and therefore was not an exact reproduction of the original CORE-7B model. Small Extra Trees and Random Forest numerical differences are documented. Several manuscript analyses, including priority-null permutation inference, the separately executed primary-model repeated-split exercise, feature-attribution pairs and certain figures/tables, are not reconstructed here. The seven-learner repeated-split benchmark is **not** the separate primary-model repeated-split exercise. Predictive and Shapley quantities must not be interpreted causally.
-
-The original archive documented these limits prior to GitHub preparation. Its status metadata in `docs/RELEASE_STATUS.json` is a **historical frozen candidate record**, not an assertion that every manuscript result was reproduced. We have preserved it unchanged. See [`REPRODUCIBILITY_SCOPE.md`](REPRODUCIBILITY_SCOPE.md) for a short coverage matrix.
-
-## Install and run
-
-Use Python 3.11 and the environment described in [`docs/VERIFIED_ENVIRONMENT.md`](docs/VERIFIED_ENVIRONMENT.md):
+Use Python 3.11 and the dependencies documented in [`docs/VERIFIED_ENVIRONMENT.md`](docs/VERIFIED_ENVIRONMENT.md):
 
 ```bash
 python3 -m venv .venv
@@ -42,29 +33,35 @@ python run.py --mode demo
 python run_extended.py --mode demo
 ```
 
-The demonstrations use only 25 synthetic records and **do not refit or verify the empirical results**.
+The demonstrations operate on synthetic data. They are not empirical model validations.
 
-Authorized researchers possessing the separately harmonized original analytical dataset may invoke:
+Researchers who already have authorized access to the harmonized analytical data can run the empirical routines in a new secure output directory **outside** this repository:
 
 ```bash
 python run.py --mode reproduce --data /secure/authorized_analytical_master.csv --output /secure/new_benchmark_outputs
 python run_extended.py --mode reproduce --data /secure/authorized_analytical_master.csv --output /secure/new_extension_outputs
 ```
 
-Run each command with a **different, new output directory** outside this repository, as required by the command-line safeguards. Consult [`docs/REPRODUCE.md`](docs/REPRODUCE.md), [`docs/INPUT_SCHEMA.md`](docs/INPUT_SCHEMA.md) and [`docs/EXTENDED_ANALYSES.md`](docs/EXTENDED_ANALYSES.md) first. The raw field-survey instrument and upstream harmonization are not supplied as a turnkey public reproduction pipeline.
+For input requirements, analysis coverage and methodological qualifications, consult [`docs/INPUT_SCHEMA.md`](docs/INPUT_SCHEMA.md), [`docs/REPRODUCE.md`](docs/REPRODUCE.md), [`docs/EXTENDED_ANALYSES.md`](docs/EXTENDED_ANALYSES.md) and [`REPRODUCIBILITY_SCOPE.md`](REPRODUCIBILITY_SCOPE.md).
 
-## Original archive integrity
+## Data availability and interpretation
 
-The frozen original-study ZIP is maintained separately as a release asset; SHA-256:
+The survey microdata, participant identifiers, household-level model predictions and individual feature records are **not distributed**. The published repository contains synthetic inputs and selected aggregate results. Empirical refitting requires separately authorized access to the harmonized analytical dataset. This package does not regenerate every inferential analysis, manuscript figure or supplementary table. Predictive measures and Shapley allocations should not be interpreted as causal effects.
 
-`f94a1ed639dfb42706c8fff51b0071ff580a4cd6d42638b4e65177d458bb4ba1`
+See [`DATA_PRIVACY.md`](DATA_PRIVACY.md) and [`docs/DATA_AVAILABILITY.md`](docs/DATA_AVAILABILITY.md).
 
-For the exact historical README and checksum list, see [`docs/FROZEN_ORIGINAL_README.md`](docs/FROZEN_ORIGINAL_README.md) and [`docs/FROZEN_ORIGINAL_SHA256SUMS.txt`](docs/FROZEN_ORIGINAL_SHA256SUMS.txt). The separately preserved 44-file historical original-study archive remains unchanged. In this GitHub edition, the portable CORE-7B fitting routine, its unit-test coverage and the corresponding aggregate reference result were corrected to match the original 33-predictor specification; these changes are not modifications to the frozen historical archive. This GitHub wrapper adds publication metadata and privacy safeguards without changing original scientific code or aggregate research results.
+## Citation and acknowledgment
 
-## Privacy, licenses and citation
+If you use these materials in research, cite the associated paper by **Mohanavelu and Osman (2026)** and identify the repository version. The research was developed by Aadhityaa Mohanavelu under the supervision of Prof. Khalid K. Osman. The paper was coauthored by Mohanavelu and Osman; software authorship and research coauthorship are distinguished in [`RIGHTS_AND_ATTRIBUTION.md`](RIGHTS_AND_ATTRIBUTION.md).
 
-Read [`DATA_PRIVACY.md`](DATA_PRIVACY.md) before working with restricted data. Keep household-level data and run outputs outside this Git repository. The original Python code is offered under MIT and eligible original documentation and aggregate materials under CC BY 4.0, **subject to confirmation of the applicable rights for this separate archive before making the repository public**. See [`LICENSING.md`](LICENSING.md).
+**Paper:** Mohanavelu, A., & Osman, K. K. (2026). *Operational Service Conditions are the primary predictors of Household Water Service Quality Across Heterogeneous Provision Systems*. Research Square [Preprint]. https://doi.org/10.21203/rs.3.rs-10888037/v1
 
-**Research reference:** Mohanavelu, A., & Osman, K. K. (2026). *Operational Service Conditions are the primary predictors of Household Water Service Quality Across Heterogeneous Provision Systems*. Research Square [Preprint]. https://doi.org/10.21203/rs.3.rs-10888037/v1
+The final journal citation should be used when available. [`CITATION.cff`](CITATION.cff) provides machine-readable citation information.
 
-The journal article citation and DOI should replace the preferred preprint citation when published. The Research Square DOI identifies the **paper**, not this software. GitHub uses the top-level [`CITATION.cff`](CITATION.cff) to display the citation.
+## Licenses
+
+Original software and functional configurations are available under the **[MIT License](LICENSE)**. Original documentation, synthetic demonstration content, questionnaire metadata and distributable aggregate results are available under **[Creative Commons Attribution 4.0 International (CC BY 4.0)](LICENSE-CONTENT.md)**, to the extent rights are held by the licensor. See [`LICENSING.md`](LICENSING.md) for the file-level distinction. These licenses do **not** grant access to restricted study data or rights in third-party materials.
+
+## Provenance
+
+The historical study-reproducibility archive is preserved separately. Its recorded SHA-256 is `f94a1ed639dfb42706c8fff51b0071ff580a4cd6d42638b4e65177d458bb4ba1`. The current repository provides a maintained portable implementation, with its checksums listed in [`PUBLIC_SHA256SUMS.txt`](PUBLIC_SHA256SUMS.txt). Archived project-status documents are historical records, not current instructions for using the software.
