@@ -12,7 +12,7 @@ This repository uses **separate licenses for software and nonsoftware research c
 | Survey microdata, household-level predictions, secure analysis records | **Not distributed** | No access or reuse permission is granted |
 | Third-party packages or separately credited content | Their own applicable licenses | No third-party rights are transferred |
 
-**Copyright holder for the original software and original repository content:** © 2026 Aadhityaa Mohanavelu, subject to any pre-existing third-party rights. The associated scientific study is coauthored by Aadhityaa Mohanavelu and Khalid K. Osman. The latter receives scholarly acknowledgment and citation credit for his research contributions, without implying that he coauthored the software.
+***Copyright and scholarly attribution:** Original software and repository content © 2026 Aadhityaa Mohanavelu, subject to applicable institutional and third-party rights. This repository supports research conducted in the Osman Lab at Stanford University. The associated scientific study is coauthored by Aadhityaa Mohanavelu and Khalid K. Osman.
 
 The MIT copyright and permission notice must accompany copies or substantial portions of covered software. CC BY 4.0 users must provide appropriate credit, link to the license and indicate changes. Citation of the underlying research should follow [`CITATION.cff`](CITATION.cff).
 
